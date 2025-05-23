@@ -39,5 +39,5 @@ jobs:
           server: ${{ secrets.FTP_SERVER }}
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
-          localDir: "dist/"
-          remoteDir: "luvy.timo-dittmann.de/"
+          local-dDir: "dist/"
+          remote-dir: "luvy.timo-dittmann.de/"
