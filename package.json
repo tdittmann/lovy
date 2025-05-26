@@ -4,12 +4,12 @@
   "private": true,
   "description": "Experimental web app for couples to track their most important milestones.",
   "scripts": {
-    "start": "vite",
     "build": "vue-tsc && vite build",
     "test:unit": "vitest",
     "test:e2e": "cypress run",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "start": "vite"
   },
   "dependencies": {
     "@capacitor/app": "7.0.1",
