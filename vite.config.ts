@@ -9,7 +9,13 @@ import {VitePWA} from "vite-plugin-pwa";
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
-    vue(),
+    vue({
+      template: {
+        compilerOptions: {
+          isCustomElement: (tag) => tag.includes('-')
+        }
+      }
+    }),
     legacy(),
     VitePWA({
       registerType: 'autoUpdate', manifest: {
