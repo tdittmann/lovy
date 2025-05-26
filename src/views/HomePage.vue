@@ -25,7 +25,6 @@ onMounted(() => {
         if (!value) {
           showLogin.value = true;
         }
-        console.log(value);
         relationship.value = value;
       });
 })
