@@ -1,5 +1,6 @@
 <template>
   <ion-app>
+    <pwa-install></pwa-install>
     <ion-router-outlet />
   </ion-app>
 </template>

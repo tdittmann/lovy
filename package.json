@@ -1,8 +1,8 @@
 {
   "name": "luvy",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "private": true,
-  "description": "An Ionic project",
+  "description": "Experimental web app for couples to track their most important milestones.",
   "scripts": {
     "start": "vite",
     "build": "vue-tsc && vite build",
@@ -19,6 +19,7 @@
     "@capacitor/status-bar": "7.0.1",
     "@ionic/vue": "^8.0.0",
     "@ionic/vue-router": "^8.0.0",
+    "@khmyznikov/pwa-install": "^0.5.5",
     "ionicons": "^7.0.0",
     "register-service-worker": "^1.7.2",
     "vue": "^3.3.0",
