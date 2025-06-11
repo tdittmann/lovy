@@ -1,4 +1,6 @@
-export type Relationship = {
+import {environment} from "@/environment/environment";
+
+export interface Relationship {
   code: string
   name1: string
   name2: string
@@ -6,7 +8,7 @@ export type Relationship = {
   image: string
 }
 
-export type Milestone = {
+export interface Milestone {
   date: Date
   description: string
 }
@@ -41,8 +43,42 @@ const toMilestone = (milestone: MilestoneJson): Milestone => {
   }
 };
 
+const toRelationshipJson = (relationship: Relationship): RelationshipJson => {
+  return {
+    code: relationship.code,
+    name1: relationship.name1,
+    name2: relationship.name2,
+    milestones: relationship.milestones.map(toMilestoneJson),
+    image: relationship.image,
+  };
+};
+
+const toMilestoneJson = (milestone: Milestone): MilestoneJson => {
+  return {
+    description: milestone.description,
+    date: String(milestone.date.getTime())
+  }
+};
+
+const cloneRelationship = (relationship: Relationship): Relationship => {
+  return {
+    code: relationship.code,
+    name1: relationship.name1,
+    name2: relationship.name2,
+    milestones: relationship.milestones.map(cloneMilestone),
+    image: relationship.image,
+  };
+};
+
+const cloneMilestone = (milestone: Milestone): Milestone => {
+  return {
+    description: milestone.description,
+    date: milestone.date,
+  }
+};
+
 const loadRelationship = (code: string) => {
-  return fetch(`http://api.lovy.timo-dittmann.de?code=${code}`)
+  return fetch(`${environment.backendUrl}?code=${code}`)
       .then(response => response.json())
       .then(value => {
         if (value) {
@@ -52,6 +88,16 @@ const loadRelationship = (code: string) => {
       })
 };
 
+const updateRelationship = (relationship: Relationship) => {
+  return fetch(environment.backendUrl, {
+    method: "PUT",
+    body: JSON.stringify(toRelationshipJson(relationship))
+  })
+      .then(response => response.json())
+};
+
 export const RelationshipService = {
   loadRelationship,
+  updateRelationship,
+  cloneRelationship
 };

@@ -7,21 +7,47 @@ import {
   IonCol,
   IonContent,
   IonGrid,
-  IonRow
+  IonIcon,
+  IonRow,
+  modalController
 } from "@ionic/vue";
 import {onMounted, ref} from "vue";
-import {Relationship} from "@/services/relationship.service";
+import {Relationship, RelationshipService} from "@/services/relationship.service";
+import {settingsOutline} from "ionicons/icons";
+import SettingsComponent from "@/components/SettingsComponent.vue";
 
 export type Props = {
   relationship: Relationship | undefined
 };
 const props = defineProps<Props>();
 
+const emit = defineEmits<{
+  (e: "updateRelationship", relationship: Relationship): void;
+}>();
+
 const getBackgroundImage = (image: string) => {
   if (!image) {
     return null;
   }
   return 'url("data:image/gif;base64,' + image + '")';
+};
+
+const openModal = async () => {
+  const modal = await modalController.create({
+    component: SettingsComponent,
+    componentProps: {
+      relationship: props.relationship,
+    },
+  });
+  modal.present();
+
+  const {data, role} = await modal.onWillDismiss();
+
+  if (role === 'confirm') {
+    RelationshipService.updateRelationship(data).then(() => {
+      emit("updateRelationship", data);
+    });
+  }
 };
 
 const heartBeat = ref<boolean>(false);
@@ -39,9 +65,15 @@ onMounted(() => {
   <IonContent class="content"
               v-if="props.relationship"
               :style="{ 'background-image': getBackgroundImage(props.relationship?.image) }">
+
+    <IonIcon class="settings-icon"
+             size="large"
+             :icon="settingsOutline"
+             @click="openModal"/>
+
     <div class="details ion-text-center">
       <IonCard>
-        <IonCardContent>
+        <IonCardContent class="card-content">
           <IonGrid>
             <IonRow class="name-row">
               <IonCol>
@@ -56,6 +88,7 @@ onMounted(() => {
             </IonRow>
           </IonGrid>
 
+          <!-- TODO: Add max height when many items are added! -->
           <IonAccordionGroup>
             <MilestoneAccordion v-for="milestone in props.relationship.milestones"
                                 :key="milestone.description"
@@ -75,7 +108,14 @@ onMounted(() => {
   background-size: cover;
 }
 
-IonCardContent {
+.settings-icon {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  color: #fff;
+}
+
+.card-content {
   padding: 0 !important;
 }
 

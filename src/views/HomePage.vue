@@ -14,6 +14,10 @@ const setRelationship = (r: Relationship) => {
   showLogin.value = false;
 };
 
+const updateRelationship = (r: Relationship) => {
+  relationship.value = r;
+};
+
 onMounted(() => {
   const existingCode = localStorage.getItem("code");
   if (!existingCode) {
@@ -36,7 +40,8 @@ onMounted(() => {
                     @loginSucceeded="setRelationship"/>
 
     <RelationshipComponent v-if="!showLogin"
-                           :relationship="relationship"/>
+                           :relationship="relationship"
+                           @updateRelationship="updateRelationship"/>
   </IonPage>
 </template>
 

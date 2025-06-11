@@ -12,6 +12,7 @@ const hours = ref<number>(0);
 const minutes = ref<number>(0);
 const seconds = ref<number>(0);
 
+// TODO: Handle dates in the future
 const calculateCountdown = (inputSeconds: number) => {
   const numSeconds = parseInt(inputSeconds.toString(), 10);
   days.value = Math.floor(numSeconds / 86400);

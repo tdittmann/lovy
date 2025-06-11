@@ -2,6 +2,7 @@
 import Countdown from "@/components/Countdown.vue";
 import {IonAccordion, IonItem, IonLabel} from '@ionic/vue';
 import {computed} from "vue";
+import {DateUtils} from "@/utils/DateUtils";
 
 export type Props = {
   description: string,
@@ -9,13 +10,7 @@ export type Props = {
 };
 const props = defineProps<Props>();
 
-const dateString = computed<string>(() => {
-  if(!props.date) {
-    return "";
-  }
-  return props.date.toLocaleDateString(undefined, {year: 'numeric', month: 'long', day: '2-digit'});
-});
-
+const dateString = computed<string>(() => DateUtils.longDate(props.date));
 </script>
 
 <template>
