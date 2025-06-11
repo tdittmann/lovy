@@ -22,6 +22,9 @@ const isValid = computed<boolean>(() => {
   return intermediateMilestone.value.description !== "" && intermediateMilestone.value.date !== undefined;
 });
 
+const updateIntermediateDate = (value: any) => {
+  intermediateMilestone.value.date = new Date(value)
+}
 const cancel = () => modalController.dismiss(null, 'cancel');
 
 const confirm = () => modalController.dismiss(intermediateMilestone.value, 'confirm');
@@ -50,7 +53,7 @@ const confirm = () => modalController.dismiss(intermediateMilestone.value, 'conf
     <p></p>
     <IonItem>
       <IonDatetime :showDefaultTitle="true"
-                   @ionChange="intermediateMilestone.date = new Date($event.detail.value)">
+                   @ionChange="updateIntermediateDate($event.detail.value)">
         <span slot="title">Zeitpunkt</span>
       </IonDatetime>
     </IonItem>
