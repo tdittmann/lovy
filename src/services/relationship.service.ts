@@ -42,7 +42,7 @@ const toMilestone = (milestone: MilestoneJson): Milestone => {
 };
 
 const loadRelationship = (code: string) => {
-  return fetch(`http://api.luvy.timo-dittmann.de?code=${code}`)
+  return fetch(`http://api.lovy.timo-dittmann.de?code=${code}`)
       .then(response => response.json())
       .then(value => {
         if (value) {

@@ -1,3 +1,3 @@
-# Luvy ❤️🤍
+# Lovy ❤️🤍
 
 Experimental web app for couples to track their most important milestones.
