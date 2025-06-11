@@ -27,6 +27,13 @@ jobs:
             ${{ runner.os }}-build-
             ${{ runner.os }}-
 
+      - name: Create environment files
+        run: |
+          cd src
+          mkdir environment
+          echo "Creating environment file..."
+          echo "${{ secrets.ENVIRONMENT_TS }}" | base64 -d >> environment/environment.ts
+
       - name: Run npm install
         run: npm i
 
