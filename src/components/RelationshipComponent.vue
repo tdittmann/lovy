@@ -88,8 +88,7 @@ onMounted(() => {
             </IonRow>
           </IonGrid>
 
-          <!-- TODO: Add max height when many items are added! -->
-          <IonAccordionGroup>
+          <IonAccordionGroup class="scrollable-accordion">
             <MilestoneAccordion v-for="milestone in props.relationship.milestones"
                                 :key="milestone.description"
                                 :description="milestone.description"
@@ -145,5 +144,10 @@ onMounted(() => {
 .name {
   font-size: 1.5em;
   font-weight: bolder;
+}
+
+.scrollable-accordion {
+  max-height: 35vh;
+  overflow: scroll;
 }
 </style>
