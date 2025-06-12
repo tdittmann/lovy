@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import {ref, watch} from "vue";
-import {IonGrid, IonRow, IonCol} from '@ionic/vue';
+import {IonCol, IonGrid, IonRow} from '@ionic/vue';
 
 export type Props = {
-  dateInMillis: number
+  date: Date
 };
 const props = defineProps<Props>();
 
@@ -12,25 +12,22 @@ const hours = ref<number>(0);
 const minutes = ref<number>(0);
 const seconds = ref<number>(0);
 
-// TODO: Handle dates in the future
-const calculateCountdown = (inputSeconds: number) => {
-  const numSeconds = parseInt(inputSeconds.toString(), 10);
-  days.value = Math.floor(numSeconds / 86400);
-  hours.value = Math.floor((numSeconds - (days.value * 86400)) / 3600);
-  minutes.value = Math.floor((numSeconds - (hours.value * 3600) - (days.value * 86400)) / 60);
-  seconds.value = numSeconds - (days.value * 86400) - (hours.value * 3600) - (minutes.value * 60);
+const calculateCountdown = (targetDate: Date) => {
+  const now = new Date();
+  const diffInSeconds = Math.floor((targetDate.getTime() - now.getTime()) / 1000);
+  const absDiff = Math.abs(diffInSeconds);
+
+  days.value = Math.floor(absDiff / 86400);
+  hours.value = Math.floor((absDiff % 86400) / 3600);
+  minutes.value = Math.floor((absDiff % 3600) / 60);
+  seconds.value = absDiff % 60;
 };
 
 watch(
-    () => [props.dateInMillis],
+    () => [props.date],
     () => {
       setInterval(() => {
-        const dateInSeconds = Math.floor(props.dateInMillis / 1000);
-        const actualDateInSeconds = Math.floor(Date.now() / 1000);
-
-        if (props.dateInMillis > 0) {
-          calculateCountdown(actualDateInSeconds - dateInSeconds);
-        }
+        calculateCountdown(props.date);
       }, 1000);
     },
     {deep: true, immediate: true}
@@ -38,7 +35,7 @@ watch(
 </script>
 
 <template>
-  <div class="container" v-if="dateInMillis > 0">
+  <div class="container" v-if="props.date">
     <IonGrid class="grid ion-text-center">
       <IonRow>
         <IonCol>

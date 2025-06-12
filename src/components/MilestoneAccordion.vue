@@ -20,7 +20,7 @@ const dateString = computed<string>(() => DateUtils.longDate(props.date));
       <IonLabel slot="end">{{ dateString }}</IonLabel>
     </IonItem>
     <div slot="content">
-      <Countdown :dateInMillis="props.date?.getTime()"></Countdown>
+      <Countdown :date="props.date"></Countdown>
     </div>
   </IonAccordion>
 </template>
