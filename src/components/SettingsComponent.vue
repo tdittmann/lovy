@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import {
+  IonAvatar,
   IonButton,
   IonButtons,
   IonContent,
@@ -57,6 +58,13 @@ const openModal = async () => {
   }
 };
 
+const getBackgroundImage = (image: string) => {
+  if (!image) {
+    return null;
+  }
+  return 'data:image/gif;base64,' + image;
+};
+
 watch(
     () => [props.relationship],
     () => {
@@ -78,6 +86,9 @@ watch(
     </IonToolbar>
   </IonHeader>
   <IonContent class="ion-padding">
+    <IonAvatar class="image">
+      <img :src="getBackgroundImage(intermediateRelationship.image)"/>
+    </IonAvatar>
     <IonItem>
       <IonInput label-placement="stacked"
                 label="Name 1"
@@ -113,3 +124,9 @@ watch(
 
   </IonContent>
 </template>
+
+<style scoped>
+.image {
+  margin: auto;
+}
+</style>
