@@ -60,7 +60,7 @@ const openModal = async () => {
 
 const getBackgroundImage = (image: string) => {
   if (!image) {
-    return null;
+    return undefined;
   }
   return 'data:image/gif;base64,' + image;
 };
@@ -87,7 +87,7 @@ watch(
   </IonHeader>
   <IonContent class="ion-padding">
     <IonAvatar class="image">
-      <img :src="getBackgroundImage(intermediateRelationship.image)"/>
+      <img :src="getBackgroundImage(intermediateRelationship.image)" alt="Couple image"/>
     </IonAvatar>
     <IonItem>
       <IonInput label-placement="stacked"
