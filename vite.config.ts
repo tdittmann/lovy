@@ -12,7 +12,9 @@ export default defineConfig({
     vue(),
     legacy(),
     VitePWA({
-      registerType: 'autoUpdate', manifest: {
+      registerType: 'autoUpdate',
+      filename: 'service-worker.js',
+      manifest: {
         name: "Lovy",
         short_name: "Lovy",
         icons: [
