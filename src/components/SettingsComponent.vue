@@ -40,7 +40,7 @@ const confirm = () => modalController.dismiss(intermediateRelationship.value, 'c
 const removeMilestone = (milestone: Milestone) => {
   const index = intermediateRelationship.value.milestones.findIndex(value => value === milestone);
   if (index >= 0) {
-    intermediateRelationship.value.milestones = intermediateRelationship.value.milestones.splice(index + 1);
+    intermediateRelationship.value.milestones.splice(index, 1);
   }
 };
 
@@ -103,7 +103,7 @@ watch(
     </IonItem>
 
     <h4>Meilensteine</h4>
-    <IonList>
+    <IonList class="milestone-liste">
       <IonItem v-for="milestone in intermediateRelationship.milestones"
                :key="milestone.description">
         <IonLabel>
@@ -115,6 +115,7 @@ watch(
         </IonButton>
       </IonItem>
     </IonList>
+    <div class="spacer"></div>
 
     <IonFab slot="fixed" vertical="bottom" horizontal="end">
       <IonFabButton>
@@ -128,5 +129,9 @@ watch(
 <style scoped>
 .image {
   margin: auto;
+}
+
+.spacer {
+  height: 50px;
 }
 </style>
